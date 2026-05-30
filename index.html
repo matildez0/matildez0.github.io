@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Matilde Oliveira -Application Security</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c0f;
+    --bg-2:#0e1116;
+    --panel:#12161c;
+    --line:#1e242c;
+    --ink:#e9edf2;
+    --muted:#8a95a3;
+    --dim:#5c6573;
+    --accent:#9dff3c;       /* sharp lime */
+    --accent-2:#39d3ff;     /* cool cyan */
+    --warn:#ffb84d;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* subtle grid + grain backdrop */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+            mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+    opacity:.5;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(10,12,15,.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav .row{display:flex;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;padding:14px 28px}
+  .brand{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.02em}
+  .brand .dot{color:var(--accent)}
+  .navlinks{display:flex;gap:26px}
+  .navlinks a{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+  .navlinks a:hover{color:var(--ink)}
+  .navlinks a::before{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .25s}
+  .navlinks a:hover::before{width:100%}
+  @media(max-width:680px){.navlinks{display:none}}
+
+  /* ---------- hero ---------- */
+  header{padding:160px 0 90px;position:relative}
+  .tag{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:26px;opacity:0}
+  .tag::before{content:"// ";color:var(--dim)}
+  h1{
+    font-family:var(--mono);font-weight:800;
+    font-size:clamp(38px,7vw,76px);line-height:1.02;letter-spacing:-.02em;
+    margin-bottom:22px;
+  }
+  h1 .l{display:block;opacity:0;transform:translateY(18px)}
+  h1 .accent{color:var(--accent)}
+  .lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:680px;margin-bottom:38px;opacity:0;transform:translateY(12px)}
+  .lead b{color:var(--ink);font-weight:600}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(12px)}
+  .btn{
+    font-family:var(--mono);font-size:13px;text-decoration:none;
+    padding:12px 20px;border:1px solid var(--line);border-radius:2px;
+    color:var(--ink);transition:all .2s;display:inline-flex;align-items:center;gap:9px;
+  }
+  .btn.primary{background:var(--accent);color:#0a0c0f;border-color:var(--accent);font-weight:700}
+  .btn.primary:hover{box-shadow:0 0 0 3px rgba(157,255,60,.18);transform:translateY(-1px)}
+  .btn:hover{border-color:var(--muted)}
+
+  /* animation utility */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- sections ---------- */
+  section{padding:70px 0;border-top:1px solid var(--line)}
+  .shead{display:flex;align-items:baseline;gap:14px;margin-bottom:42px}
+  .snum{font-family:var(--mono);font-size:13px;color:var(--accent)}
+  .stitle{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .sline{flex:1;height:1px;background:var(--line)}
+
+  .about{font-size:clamp(17px,2.2vw,22px);line-height:1.7;max-width:780px;color:var(--ink);font-weight:300}
+  .about b{font-weight:600}
+  .about .hl{color:var(--accent);font-weight:500}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:4px;padding:26px;
+    position:relative;overflow:hidden;transition:transform .25s,border-color .25s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:#2c3540}
+  .card::before{content:"";position:absolute;top:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+  .card:hover::before{width:100%}
+  .card .pid{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:14px}
+  .card h3{font-family:var(--mono);font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
+  .card p{font-size:14.5px;color:var(--muted);margin-bottom:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-family:var(--mono);font-size:10.5px;color:var(--accent-2);border:1px solid var(--line);border-radius:99px;padding:3px 10px;letter-spacing:.02em}
+  .card.feat{grid-column:1 / -1;background:linear-gradient(135deg,rgba(157,255,60,.06),var(--bg-2) 55%)}
+  .card.feat h3{font-size:20px}
+  .card.feat .chip{color:var(--accent)}
+
+  /* practice / learning row */
+  .learn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:760px){.learn{grid-template-columns:1fr}}
+  .lcard{border:1px solid var(--line);border-radius:4px;padding:22px;background:var(--bg-2)}
+  .lcard .k{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:8px}
+  .lcard h4{font-size:15px;font-weight:600;margin-bottom:6px}
+  .lcard p{font-size:13.5px;color:var(--muted)}
+
+  /* skills */
+  .skills{display:grid;grid-template-columns:200px 1fr;gap:10px 28px;align-items:start}
+  @media(max-width:680px){.skills{grid-template-columns:1fr;gap:4px}}
+  .srow{display:contents}
+  .sk-label{font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:10px}
+  .sk-vals{display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .sk-vals span{font-size:13px;color:var(--muted);font-family:var(--mono)}
+  .sk-vals span:not(:last-child)::after{content:"·";color:var(--dim);margin-left:8px}
+
+  /* experience timeline */
+  .tl{position:relative;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--line)}
+  .item{position:relative;margin-bottom:30px}
+  .item::before{content:"";position:absolute;left:-26px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+  .item .when{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-bottom:4px}
+  .item h3{font-size:16px;font-weight:600;margin-bottom:3px}
+  .item .org{font-family:var(--mono);font-size:12.5px;color:var(--accent-2);margin-bottom:10px}
+  .item ul{list-style:none}
+  .item li{font-size:14px;color:var(--muted);padding-left:18px;position:relative;margin-bottom:5px}
+  .item li::before{content:"▹";position:absolute;left:0;color:var(--accent);font-size:12px}
+
+  /* contact */
+  .contact{text-align:center;padding:90px 0 70px}
+  .contact .tag{display:inline-block}
+  .contact h2{font-family:var(--mono);font-size:clamp(28px,5vw,46px);font-weight:800;margin:14px 0 28px;letter-spacing:-.02em}
+  .contact h2 .accent{color:var(--accent)}
+  .clinks{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  footer{border-top:1px solid var(--line);padding:26px 0;text-align:center}
+  footer p{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+  ::selection{background:var(--accent);color:#0a0c0f}
+  .cursor-blink{display:inline-block;width:11px;height:1.05em;background:var(--accent);margin-left:4px;vertical-align:-2px;animation:bl 1.1s steps(1) infinite}
+  @keyframes bl{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="row">
+    <div class="brand">matilde<span class="dot">.</span>oliveira</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#practice">practice</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <div class="tag" id="t0">Application Security · Porto / Braga, PT</div>
+    <h1>
+      <span class="l" id="l1">Matilde</span>
+      <span class="l" id="l2">Oliveira<span class="cursor-blink"></span></span>
+    </h1>
+    <p class="lead" id="lead">
+      MSc Software Engineering student specialised in <b>Network, Cryptography &amp; Information Security</b>.
+      I find and help fix vulnerabilities in real source code -and I'm fascinated by how things work, and how they fail.
+    </p>
+    <div class="cta" id="cta">
+      <a class="btn primary" href="#projects">View projects →</a>
+      <a class="btn" href="mailto:matilde0liveiraa@hotmail.com">Get in touch</a>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="shead reveal"><span class="snum">01</span><span class="stitle">About</span><span class="sline"></span></div>
+    <p class="about reveal">
+      With a BSc in Information Systems Engineering &amp; Management, I'm driven by a genuine passion for
+      <span class="hl">cybersecurity</span>. I continuously sharpen my skills through
+      <b>TryHackMe</b>, <b>PortSwigger Web Security Academy</b> and <b>SEED Labs</b> -solving CTF-style challenges
+      on clickjacking, authentication, access control and beyond. I stay current through security media like
+      <b>DarkReading</b> and the <b>Chaos Computer Club</b>. Beyond the technical side, my time at
+      <span class="hl">EPIC</span> shaped a people-first philosophy I bring to every team.
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="shead reveal"><span class="snum">02</span><span class="stitle">Security Projects</span><span class="sline"></span></div>
+    <div class="grid">
+
+      <div class="card feat reveal">
+        <div class="pid">PROJECT // 001 -open source</div>
+        <h3>SAST Vulnerability Scanner for C &amp; Rust</h3>
+        <p>Built open-source code-auditing tooling that statically scans vulnerable C and Rust repositories for security
+           flaws, shipped with intentionally vulnerable Docker environments and wired into an automated CI/CD pipeline —
+           security checks running on every commit (DevSecOps).</p>
+        <div class="chips">
+          <span class="chip">SAST</span><span class="chip">C</span><span class="chip">Rust</span>
+          <span class="chip">Docker</span><span class="chip">CI/CD</span><span class="chip">GitHub Actions</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="pid">PROJECT // 002</div>
+        <h3>P4 Router &amp; Firewall</h3>
+        <p>Programmed router and firewall functionality in P4, deployed as containerised network functions -packet
+           filtering and forwarding logic written from the data plane up.</p>
+        <div class="chips"><span class="chip">P4</span><span class="chip">SDN</span><span class="chip">Containers</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="pid">PROJECT // 003 -SEED Labs</div>
+        <h3>Buffer Overflow &amp; Systems Labs</h3>
+        <p>Hands-on offensive and systems-security labs from SEED Labs, including crafting buffer-overflow exploits and
+           analysing how memory-safety failures are turned into control of a program.</p>
+        <div class="chips"><span class="chip">Memory safety</span><span class="chip">Exploitation</span><span class="chip">Linux</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="pid">PROJECT // 004 -research</div>
+        <h3>ZKP &amp; Post-Quantum Crypto for 5G</h3>
+        <p>Research on Zero-Knowledge Proof frameworks and Post-Quantum Cryptography applied to 5G networks —
+           exploring what authentication and privacy look like after RSA.</p>
+        <div class="chips"><span class="chip">ZKP</span><span class="chip">PQC</span><span class="chip">5G</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="pid">PROJECT // 005</div>
+        <h3>V2X Cooperative Traffic Management</h3>
+        <p>Coordinated traffic through road-work zones using vehicle-to-everything (V2X) communication, modelling how
+           connected vehicles negotiate a shared bottleneck.</p>
+        <div class="chips"><span class="chip">V2X</span><span class="chip">Networks</span><span class="chip">Simulation</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section id="practice">
+    <div class="shead reveal"><span class="snum">03</span><span class="stitle">Continuous Practice</span><span class="sline"></span></div>
+    <div class="learn">
+      <div class="lcard reveal">
+        <div class="k">&gt; tryhackme</div>
+        <h4>Hands-on rooms</h4>
+        <p>Working through rooms regularly to build offensive and defensive fundamentals.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="k">&gt; portswigger</div>
+        <h4>Web Security Academy</h4>
+        <p>CTF-style labs on clickjacking, authentication, access control, XSS, SQLi, SSRF and more.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="k">&gt; reading</div>
+        <h4>Staying current</h4>
+        <p>Following DarkReading and the Chaos Computer Club to track the evolving threat landscape.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="shead reveal"><span class="snum">04</span><span class="stitle">Technical Skills</span><span class="sline"></span></div>
+    <div class="skills reveal">
+      <div class="srow"><div class="sk-label">security</div>
+        <div class="sk-vals"><span>Web security (XSS, SQLi, SSRF, auth)</span><span>SAST</span><span>Vulnerability Analysis</span><span>CI/CD security</span><span>Network Defense</span><span>Wireshark</span></div></div>
+      <div class="srow"><div class="sk-label">cryptography</div>
+        <div class="sk-vals"><span>Cryptography</span><span>Post-Quantum (PQC)</span><span>Zero-Knowledge Proofs</span></div></div>
+      <div class="srow"><div class="sk-label">tools</div>
+        <div class="sk-vals"><span>Burp Suite</span><span>Semgrep</span><span>CodeQL</span><span>Git / GitHub Actions</span><span>Docker</span><span>Linux</span><span>VirtualBox</span></div></div>
+      <div class="srow"><div class="sk-label">programming</div>
+        <div class="sk-vals"><span>Python</span><span>Go</span><span>C</span><span>Rust</span><span>Java</span><span>JavaScript / TypeScript</span><span>PHP</span></div></div>
+      <div class="srow"><div class="sk-label">networking</div>
+        <div class="sk-vals"><span>P4</span><span>SDN</span><span>V2X</span><span>Network protocols</span></div></div>
+      <div class="srow"><div class="sk-label">languages</div>
+        <div class="sk-vals"><span>Portuguese (native)</span><span>English (C1)</span><span>French (B1)</span></div></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="shead reveal"><span class="snum">05</span><span class="stitle">Experience &amp; Education</span><span class="sline"></span></div>
+    <div class="tl reveal">
+
+      <div class="item">
+        <div class="when">2025 -Present</div>
+        <h3>MSc in Software Engineering -Network, Cryptography &amp; Information Security</h3>
+        <div class="org">University of Minho</div>
+        <ul>
+          <li>Software Security, Computer Systems Security, Cryptography, Network Services Engineering, Cloud Computing, ML.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="when">Nov 2024 -Present</div>
+        <h3>Project &amp; HR Departments</h3>
+        <div class="org">EPIC -University of Minho Student Association</div>
+        <ul>
+          <li>Built a full recruitment platform from scratch with React, TypeScript &amp; Tailwind CSS.</li>
+          <li>Cidade Digital (Guimarães): WordPress, custom PHP plugins, data migration, Figma UI, client meetings.</li>
+          <li>Led internal training, recruitment dynamics and team engagement -a people-first culture.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="when">2022 -2025</div>
+        <h3>BSc in Information Systems Engineering &amp; Management</h3>
+        <div class="org">University of Minho</div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- CONTACT -->
+<div class="wrap">
+  <div class="contact" id="contact">
+    <div class="tag">Open to opportunities</div>
+    <h2>Let's build something <span class="accent">secure</span>.</h2>
+    <div class="clinks">
+      <a class="btn primary" href="mailto:matilde0liveiraa@hotmail.com">matilde0liveiraa@hotmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap"><p>// designed &amp; built by Matilde Oliveira · 2026</p></div>
+</footer>
+
+<script>
+  // staggered hero load
+  const seq=[["t0",80],["l1",220],["l2",340],["lead",520],["cta",680]];
+  window.addEventListener("load",()=>{
+    seq.forEach(([id,d])=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      setTimeout(()=>{el.style.transition="opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)";el.style.opacity="1";el.style.transform="none";},d);
+    });
+  });
+  // scroll reveals
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+  },{threshold:.15});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
