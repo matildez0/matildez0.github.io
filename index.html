@@ -223,10 +223,8 @@
   }
   #trackbox.on{opacity:1}
   #trackbox .ring{
-    position:absolute;inset:12px;border-radius:50%;
-    background:conic-gradient(from 0deg,#5cf08f,#a77bff,#ff5f7a,#5cf08f);
-    -webkit-mask:radial-gradient(circle,transparent 60%,#000 63%);mask:radial-gradient(circle,transparent 60%,#000 63%);
-    filter:drop-shadow(0 0 6px rgba(167,123,255,.75));animation:spin 2.8s linear infinite;
+    position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;
+    background:var(--red);box-shadow:0 0 10px 2px rgba(167,123,255,.65);
   }
   @keyframes spin{to{transform:rotate(360deg)}}
   #trackbox .lbl{
@@ -300,8 +298,7 @@
   }
   .spot{
     position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;mix-blend-mode:screen;
-    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
-      rgba(92,240,143,.20),rgba(167,123,255,.15) 34%,rgba(255,95,122,.08) 56%,transparent 74%);
+    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(92,240,143,.14),transparent 70%);
   }
   .spot.on{opacity:1}
   @media(hover:none){.dark,.spot{display:none}}
