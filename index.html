@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Matilde Oliveira · Application Security</title>
-<meta name="description" content="Matilde Oliveira, Application Security. MSc Software Engineering (Network, Cryptography & Information Security). Building SAST tooling, breaking web apps, and hardening the systems built to watch more than they should." />
+<title>Matilde Oliveira · Portfolio</title>
+<meta name="description" content="Matilde Oliveira, MSc student in Software Engineering (Network, Cryptography &amp; Information Security) at the University of Minho. Projects in security tooling, cryptography and networks. Open to internships in networking and cybersecurity." />
 <meta name="theme-color" content="#07080a" />
-<meta property="og:title" content="Matilde Oliveira · Application Security" />
-<meta property="og:description" content="Every system built to watch more than it should was still written by someone. Code has authors, and authors make mistakes. I find them." />
+<meta property="og:title" content="Matilde Oliveira · Portfolio" />
+<meta property="og:description" content="MSc student in Software Engineering at the University of Minho, focused on networks, cryptography and information security. Open to internships in networking and cybersecurity." />
 <meta property="og:type" content="website" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307080a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23a77bff' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%235cf08f'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -221,103 +221,134 @@
     position:fixed;left:0;top:0;width:64px;height:64px;pointer-events:none;opacity:0;
     transition:opacity .3s;z-index:3;
   }
-  #trackbox.on{opacity:.55}
-  #trackbox .b{position:absolute;width:12px;height:12px;border:1px solid var(--sig)}
-  #trackbox .b.a{top:0;left:0;border-right:none;border-bottom:none}
-  #trackbox .b.b{top:0;right:0;border-left:none;border-bottom:none}
-  #trackbox .b.c{bottom:0;left:0;border-right:none;border-top:none}
-  #trackbox .b.d{bottom:0;right:0;border-left:none;border-top:none}
+  #trackbox.on{opacity:1}
+  #trackbox .ring{
+    position:absolute;inset:12px;border-radius:50%;
+    background:conic-gradient(from 0deg,#5cf08f,#a77bff,#ff5f7a,#5cf08f);
+    -webkit-mask:radial-gradient(circle,transparent 60%,#000 63%);mask:radial-gradient(circle,transparent 60%,#000 63%);
+    filter:drop-shadow(0 0 6px rgba(167,123,255,.75));animation:spin 2.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
   #trackbox .lbl{
-    position:absolute;top:-16px;left:0;font-family:var(--mono);font-size:9px;
-    color:var(--sig);letter-spacing:.14em;white-space:nowrap;
+    position:absolute;top:-4px;left:58px;font-family:var(--mono);font-size:10px;
+    color:var(--red);letter-spacing:.04em;white-space:nowrap;opacity:.85;
   }
   @media(max-width:900px){#trackbox{display:none}}
 
   /* ===================== city backdrop (aerial isometric) ===================== */
-  .city-bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+  .city-bg{position:fixed;inset:0;z-index:0;overflow:hidden;transition:filter .35s ease}
+  body.reading .city-bg{filter:blur(2.5px) brightness(.85)}
   .city-bg::after{
     content:"";position:absolute;left:0;right:0;top:-35%;height:35%;pointer-events:none;
     background:linear-gradient(180deg,transparent,rgba(92,240,143,.045),transparent);
     animation:scan 9s linear infinite;
   }
   @keyframes scan{to{transform:translateY(400%)}}
-  #city{display:block;width:100%;height:100%;-webkit-tap-highlight-color:transparent}
-  #city .street{stroke:rgba(92,240,143,.07);stroke-dasharray:2 7}
-  #city .blk{pointer-events:none}
-  #city .fl{fill:#080b09}
-  #city .fr{fill:#0a0e0b}
-  #city .ft{fill:#0d130f}
-  #city .fl,#city .fr,#city .ft{stroke:rgba(92,240,143,.1);stroke-linejoin:round;transition:fill .25s,stroke .25s}
-  #city .wl{stroke:rgba(92,240,143,.045)}
-  #city .street,#city .fl,#city .fr,#city .ft,#city .wl{stroke-width:1;vector-effect:non-scaling-stroke}
 
-  /* the ten zones: brighter outline, violet tag on the roof */
-  #city .unit{cursor:pointer;outline:none}
-  #city .unit .fl,#city .unit .fr,#city .unit .ft{stroke:rgba(92,240,143,.3)}
-  #city .unit .wl{stroke:rgba(92,240,143,.11)}
-  #city .beacon{fill:var(--red);opacity:.9;pointer-events:none}
-  #city .num{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.08em;fill:var(--red);text-anchor:middle;pointer-events:none;transition:fill .2s;opacity:.85}
-  #city .unit:hover .fl,#city .unit:focus-visible .fl,#city .unit.on .fl{fill:#0f2418;stroke:var(--sig)}
-  #city .unit:hover .fr,#city .unit:focus-visible .fr,#city .unit.on .fr{fill:#143020;stroke:var(--sig)}
-  #city .unit:hover .ft,#city .unit:focus-visible .ft,#city .unit.on .ft{fill:#1b3f29;stroke:var(--sig)}
-  #city .unit:hover .wl,#city .unit:focus-visible .wl,#city .unit.on .wl{stroke:rgba(92,240,143,.5)}
-  #city .unit:hover .num,#city .unit:focus-visible .num,#city .unit.on .num{fill:var(--sig);opacity:1}
-  #city .unit.on,#city .unit:focus-visible{filter:drop-shadow(0 0 8px rgba(92,240,143,.55))}
-  #city.ping .unit .ft{animation:ping 1.4s ease-out 2}
-  @keyframes ping{0%{fill:#2a4f38;stroke:var(--sig)}100%{fill:#0d130f}}
 
   /* ===================== page frame: one screen, no scrolling ===================== */
   html,body{height:100%}
   body{overflow:hidden}
 
-  /* city windows: dark = empty office, violet outline = holds a piece of the file */
-  #city .wn{fill:rgba(0,0,0,.28);stroke:rgba(92,240,143,.1)}
-  #city .wa{fill:rgba(167,123,255,.07);stroke:rgba(167,123,255,.6);cursor:pointer;transition:fill .15s,stroke .15s}
-  #city .wa:hover,#city .wa.on,#city .wa.seen:hover,#city .wa.seen.on{
-    fill:url(#winHot);stroke:#e9fff1;filter:drop-shadow(0 0 6px rgba(167,123,255,.8)) drop-shadow(0 0 12px rgba(92,240,143,.45));
+    fill:var(--sig);stroke:#e9fff1;filter:drop-shadow(0 0 7px rgba(92,240,143,.85));
   }
-  #city .wa.seen{fill:rgba(92,240,143,.16);stroke:rgba(92,240,143,.55)}
-  #city .unit{transition:transform .35s var(--ease)}
-  #city .unit:hover{transform:translateY(-5px)}
+  #city3d{display:block;width:100%;height:100%;touch-action:none;cursor:grab;outline:none}
+  #labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .blabel{
+    position:absolute;left:0;top:0;pointer-events:auto;cursor:pointer;will-change:transform;
+    font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+    color:var(--red);background:rgba(7,8,10,.82);border:1px solid rgba(167,123,255,.5);border-radius:2px;padding:4px 10px;
+    box-shadow:0 0 18px -4px rgba(167,123,255,.65);transition:color .2s,border-color .2s,box-shadow .2s;
+  }
+  .blabel b{color:var(--sig);margin-right:7px}
+  .blabel:hover,.blabel.on{color:var(--sig);border-color:var(--sig);box-shadow:0 0 20px -4px rgba(92,240,143,.75)}
+
+  .walkhint{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;max-width:calc(100vw - 32px);
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    background:rgba(7,8,10,.82);border:1px solid rgba(92,240,143,.25);border-radius:999px;padding:8px 16px;
+    transition:opacity .6s;
+  }
+  .walkhint .k{color:var(--red);letter-spacing:.14em;text-transform:uppercase;font-size:10px}
+  .walkhint b{color:var(--sig);font-weight:500}
+  .walkhint.gone{opacity:0;pointer-events:none}
+  .walkhint .for-touch{display:none}
+  .pad{position:fixed;left:16px;bottom:74px;z-index:40;display:none;flex-direction:column;gap:8px}
+  .pad button{
+    width:52px;height:52px;border-radius:12px;font-size:18px;color:var(--sig);cursor:pointer;
+    background:rgba(7,8,10,.8);border:1px solid rgba(92,240,143,.4);-webkit-tap-highlight-color:transparent;
+    touch-action:none;user-select:none;-webkit-user-select:none;
+  }
+  .pad button:active{background:rgba(92,240,143,.18)}
+  @media(max-width:560px){
+    .walkhint{border-radius:14px;padding:8px 12px;font-size:11px}
+    .blabel{font-size:10.5px;padding:3px 8px}
+  }
+  @media(hover:none){
+    .walkhint .for-mouse{display:none}
+    .walkhint .for-touch{display:inline}
+    .pad{display:flex}
+  }
+  body.no3d .walkhint,body.no3d .pad{display:none}
+
+  /* the city sits in the dark; the pointer is a torch that uncovers it */
+  .dark{
+    position:absolute;inset:0;pointer-events:none;background:rgba(3,4,5,.42);
+    -webkit-mask-image:radial-gradient(circle 250px at var(--mx,-999px) var(--my,-999px),transparent 0,transparent 32%,#000 100%);
+            mask-image:radial-gradient(circle 250px at var(--mx,-999px) var(--my,-999px),transparent 0,transparent 32%,#000 100%);
+  }
   .spot{
-    position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;
-    background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),
-      rgba(92,240,143,.10),rgba(167,123,255,.08) 38%,rgba(255,95,122,.04) 58%,transparent 72%);
+    position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;mix-blend-mode:screen;
+    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+      rgba(92,240,143,.20),rgba(167,123,255,.15) 34%,rgba(255,95,122,.08) 56%,transparent 74%);
   }
   .spot.on{opacity:1}
-  #city .wn,#city .wa{stroke-width:1;vector-effect:non-scaling-stroke}
-  #city .roof{cursor:pointer}
+  @media(hover:none){.dark,.spot{display:none}}
 
-  /* ===================== readout panel ===================== */
+  /* ===================== thought bubble ===================== */
   .panel{
-    position:fixed;z-index:50;top:68px;right:16px;bottom:16px;width:min(440px,38vw);
-    display:flex;flex-direction:column;
-    background:rgba(7,8,10,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:1px solid rgba(167,123,255,.28);border-left:2px solid var(--red);border-radius:4px;
-    box-shadow:0 30px 80px -30px #000;
+    position:fixed;z-index:50;left:0;top:0;width:min(380px,calc(100vw - 24px));
+    opacity:0;pointer-events:none;transform:translate(var(--bx,50vw),var(--by,50vh)) scale(.85);transform-origin:var(--ox,0) var(--oy,100%);
+    transition:opacity .22s,transform .22s var(--ease);
   }
-  .p-head{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+  .panel.open{opacity:1;pointer-events:auto;transform:translate(var(--bx,50vw),var(--by,50vh)) scale(1)}
+  .panel.settled{transition:opacity .22s}
+  .b-cloud{
+    position:relative;background:rgba(9,13,11,.96);border:1px solid rgba(167,123,255,.6);border-radius:22px;
+    box-shadow:0 0 28px -8px rgba(167,123,255,.5),0 24px 50px -28px #000;
+  }
+  .b-in{position:relative;border-radius:21px;overflow:hidden;display:flex;flex-direction:column;max-height:min(62vh,560px)}
+  .tdot{
+    position:fixed;left:0;top:0;z-index:49;border-radius:50%;pointer-events:none;opacity:0;
+    background:rgba(9,13,11,.96);border:1px solid rgba(167,123,255,.6);
+    transition:opacity .2s;
+  }
+  .tdot.on{opacity:1}
+  .p-head{display:flex;align-items:center;gap:8px;padding:14px 18px 10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
   .p-k{color:var(--red);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .p-pin{color:var(--sig);margin-left:auto;white-space:nowrap}
-  .p-home{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line-2);border-radius:2px;padding:4px 8px;cursor:pointer;flex-shrink:0}
+  .p-home{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line-2);border-radius:999px;padding:4px 9px;cursor:pointer;flex-shrink:0}
+  .p-x{font-size:13px;line-height:1;padding:3px 8px;letter-spacing:0}
   .p-pin:empty{display:none}
   .p-pin:empty + .p-home{margin-left:auto}
   .p-home:hover{color:var(--sig);border-color:var(--sig-dim)}
-  .p-body{flex:1;overflow-y:auto;padding:18px;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+  .p-body{flex:1;overflow-y:auto;padding:4px 18px 18px;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;overscroll-behavior:contain}
   .p-body .reveal{opacity:1;transform:none}
+  .p-body .card{padding:18px;background:transparent;border-color:var(--line)}
   .p-body .card:hover{transform:none}
   .p-body .feat-grid{grid-template-columns:1fr;gap:18px}
   .p-body .srow{grid-template-columns:1fr}
   .p-body .sk-label{border-right:none;border-bottom:1px solid var(--line);padding-bottom:10px}
   .p-body .tl{padding-left:30px}
   .p-body .item{margin-bottom:0}
-  .p-body .about{font-size:16px}
+  .p-body .about{font-size:15.5px}
   .p-body .contact-box{text-align:left;padding:0}
-  .p-body .contact-box h2{font-size:30px}
+  .p-body .contact-box h2{font-size:28px}
   .p-body .contact-box p{margin-left:0}
   .p-body .clinks{justify-content:flex-start}
   .p-body .console{box-shadow:none}
-  .p-body #cout{height:clamp(180px,40vh,420px)}
+  .p-body #cout{height:clamp(160px,32vh,300px)}
   .p-where{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
   .p-where b{color:var(--red);font-weight:500}
 
@@ -353,7 +384,7 @@
   .pager .btn{padding:8px 12px;font-size:11px}
 
   @media(max-width:760px){
-    .panel{top:auto;left:0;right:0;bottom:0;width:auto;height:46vh;height:46dvh;border-left:1px solid rgba(167,123,255,.28);border-top:2px solid var(--red);border-radius:10px 10px 0 0}
+    .b-in{max-height:min(52vh,460px)}
     .intro .thesis{font-size:18px}
   }
 
@@ -423,7 +454,7 @@
   .dossier .dh .cls{color:var(--sig)}
   .drow{display:flex;gap:14px;padding:9px 16px;border-bottom:1px dashed var(--line)}
   .drow:last-child{border-bottom:none}
-  .drow .k{color:var(--dim);width:78px;flex-shrink:0;letter-spacing:.05em}
+  .drow .k{color:var(--dim);width:92px;flex-shrink:0;letter-spacing:.05em}
   .drow .v{color:var(--ink);min-width:0;word-break:break-word}
   .drow .v a{color:var(--sig);text-decoration:none;border-bottom:1px solid transparent}
   .drow .v a:hover{border-color:var(--sig)}
@@ -602,23 +633,41 @@
 
 <!-- ============ city: aerial isometric backdrop, fills the viewport ============ -->
 <div class="city-bg" id="cityBg">
-  <svg id="city" aria-hidden="true"></svg>
+  <canvas id="city3d" aria-label="A street with ten buildings. Drag to look around, use W A S D or scroll to walk, point at a lit window to read it."></canvas>
+  <div id="labels"></div>
+  <div class="dark"></div>
   <div class="spot" id="spot"></div>
 </div>
 <div id="trackbox" aria-hidden="true">
-  <span class="lbl">SENSOR · <span id="tbxy">000,000</span></span>
-  <span class="b a"></span><span class="b b"></span><span class="b c"></span><span class="b d"></span>
+  <i class="ring"></i>
+  <span class="lbl" id="tbxy">41.15790° N · 8.62910° W</span>
 </div>
 
 <!-- ============ readout panel: whatever window you point at ============ -->
 <aside class="panel" id="panel" aria-live="polite">
+ <div class="b-cloud">
+ <div class="b-in">
   <div class="p-head">
     <span class="p-k" id="pK">standby</span>
     <span class="p-pin" id="pPin"></span>
     <button class="p-home" id="pHome" type="button">home</button>
+    <button class="p-home p-x" id="pClose" type="button" aria-label="Close panel">×</button>
   </div>
   <div class="p-body" id="pBody"></div>
+ </div>
+ </div>
 </aside>
+<i class="tdot" id="td1"></i><i class="tdot" id="td2"></i><i class="tdot" id="td3"></i>
+
+<div class="walkhint" id="walkhint">
+  <span class="k">street view</span>
+  <span class="for-mouse">drag to look around · <b>W A S D</b> or scroll to walk · point at a lit window</span>
+  <span class="for-touch">drag to look around · hold <b>▲ ▼</b> to walk · tap a lit window</span>
+</div>
+<div class="pad" aria-hidden="true">
+  <button type="button" data-move="1">▲</button>
+  <button type="button" data-move="-1">▼</button>
+</div>
 
 <div class="fx fx-noise"></div>
 <div class="fx fx-lines"></div>
@@ -680,18 +729,24 @@
 
   <div id="intro" class="intro">
     <div class="feed">
-      <span class="rec"><i></i>ARMED</span>
+      <span class="rec"><i></i>ONLINE</span>
       <span class="sep">|</span><span>PORTO, PT</span>
       <span class="sep">|</span><span id="clock">--:--:--</span>
     </div>
     <p class="thesis">
-      Every system built to watch more than it should was <span class="em">still written by someone</span>.
-      Code has authors, authors make mistakes, and I go looking for them.
+      Hi, I'm Matilde. I study how systems work and how they fail, and I use that to help make them
+      <span class="em">safer to use</span>.
     </p>
     <p class="lead">
-      I'm an MSc student in Software Engineering at the University of Minho, specialising in
-      <b>Network, Cryptography &amp; Information Security</b>. I build tools that find security flaws
-      before software ships, and I study cryptography designed to hold up against quantum computers.
+     I'm a Master's student in Software Engineering at the University of Minho, specialising in
+<b>Network, Cryptography &amp; Information Security</b>, after a BSc in Information Systems
+Engineering and Management. My projects cover security tooling, applied cryptography and networks:
+I built a static analysis tool that combines security scanners for C and Rust into a single report,
+secured communication between services with RSA and digital certificates, programmed a router and
+firewall in P4, and researched zero-knowledge proofs and post-quantum cryptography for 5G networks.
+Outside class I practise on TryHackMe, PortSwigger Web Security Academy and SEED Labs, and my work
+at EPIC, the University of Minho student association, taught me to work in teams and with clients.
+I'm open to <b>internships in networking and cybersecurity</b>.
     </p>
     <div class="hint">
       <span class="k">how to explore</span>
@@ -718,23 +773,19 @@
       <span class="sline"></span><span class="snote">// where I stand</span>
     </div>
     <div class="manifesto">
-      <div class="mcard them reveal" data-title="The problem">
-        <span class="tag">▲ the problem</span>
-        <p>Governments keep building the same surveillance architecture they would never accept pointed
-          back at them: cameras with no warrant, retention with no expiry,
-          <b>correlation across sources nobody ever agreed to link</b>. It arrives through the
-          infrastructure everyone has to use anyway.</p>
-        <p>It is rarely a conspiracy. It is just the cheapest architecture to build, rolled out one
-          contract at a time, and almost nobody is ever asked to approve it.</p>
+      <div class="mcard them reveal" data-title="What draws me to it">
+        <span class="tag">▲ what draws me to it</span>
+        <p>I like patterns and I like solving problems. Security gives me both: to protect a system,
+          you first have to understand <b>how it really works and how it breaks</b>.</p>
+        <p>What I enjoy most is the process: testing, reading, connecting the dots, until the answer
+          finally makes sense.</p>
       </div>
-      <div class="mcard her reveal" data-title="What I do about it">
-        <span class="tag">◆ what I do about it</span>
-        <p>I build the walls. <b>Every camera, sensor and "lawful intercept" is software first</b>.
-          It is written by people, runs on hardware, and is defended by someone or by no one at all.
-          That is where I work.</p>
-        <p>So I write the scanners that catch the flaws before they ship, study the cryptography built
-          to survive whoever intercepts it today and decrypts it in ten years, and treat
-          <b>privacy as something you engineer in</b>, not bolt on after the break-in.</p>
+      <div class="mcard her reveal" data-title="What I want to contribute">
+        <span class="tag">◆ what I want to contribute</span>
+        <p>I want people to feel safe using the technology they depend on every day. For me that means
+          <b>software that respects their data</b> and holds up when someone tries to break it.</p>
+        <p>That is why I work on tools that catch flaws before software ships, and why I study the
+          cryptography that keeps information private.</p>
       </div>
     </div>
   </section>
@@ -748,31 +799,27 @@
     <div class="about-grid">
       <div class="reveal">
         <p class="about" data-title="Background and training">
-          With a BSc in Information Systems Engineering &amp; Management, I'm driven by a genuine passion for
-          <span class="hl">cybersecurity</span>. I continuously sharpen my skills through <b>TryHackMe</b>,
-          <b>PortSwigger Web Security Academy</b> and <b>SEED Labs</b>, solving CTF-style challenges on
-          <span class="rd" tabindex="0">clickjacking</span>, <span class="rd" tabindex="0">authentication</span>,
-          <span class="rd" tabindex="0">access control</span> and beyond.
+          I have a BSc in Information Systems Engineering and Management and I'm now doing an MSc in
+          Software Engineering, specialising in <span class="hl">network, cryptography and information security</span>.
+          I practise on <b>TryHackMe</b>, <b>PortSwigger Web Security Academy</b> and <b>SEED Labs</b>,
+          working through labs on clickjacking, authentication, access control and more.
         </p>
         <p class="about" data-title="How I stay current">
-          I stay current through security media like <b>DarkReading</b> and the <b>Chaos Computer Club</b>,
-          people who have been arguing about this since before it had a market. Beyond the technical side,
-          my time at <b>EPIC</b> shaped a people-first philosophy I bring to every team.
-        </p>
-        <p class="about" style="font-size:14px;color:var(--dim)">
-          <span style="font-family:var(--mono);font-size:11px">// hover the redacted blocks</span>
+          I follow <b>DarkReading</b> and the <b>Chaos Computer Club</b> to keep up with the field.
+          Outside the technical side, my time at <b>EPIC</b> taught me to work in teams, lead client
+          meetings and organise events.
         </p>
       </div>
       <div class="dossier reveal" data-title="Profile at a glance">
-        <div class="dh"><span>Subject file</span><span class="cls">UNCLASSIFIED</span></div>
+        <div class="dh"><span>Profile</span><span class="cls">open to internships</span></div>
         <div class="drow"><span class="k">name</span><span class="v">Matilde Oliveira</span></div>
-        <div class="drow"><span class="k">role</span><span class="v">Application Security</span></div>
-        <div class="drow"><span class="k">status</span><span class="v">MSc student · UMinho</span></div>
-        <div class="drow"><span class="k">focus</span><span class="v">Network · Cryptography · InfoSec</span></div>
+        <div class="drow"><span class="k">studying</span><span class="v">MSc Software Engineering</span></div>
+        <div class="drow"><span class="k">university</span><span class="v">University of Minho</span></div>
+        <div class="drow"><span class="k">focus</span><span class="v">Networks · Cryptography · Information security</span></div>
         <div class="drow"><span class="k">base</span><span class="v">Porto, Portugal</span></div>
         <div class="drow"><span class="k">github</span><span class="v"><a href="https://github.com/matildez0" target="_blank" rel="noopener">@matildez0</a></span></div>
         <div class="drow"><span class="k">linkedin</span><span class="v"><a href="https://www.linkedin.com/in/matildeoliveira0/" target="_blank" rel="noopener">/matildeoliveira0</a></span></div>
-        <div class="drow"><span class="k">threat</span><span class="v" style="color:var(--sig)">to insecure code</span></div>
+        <div class="drow"><span class="k">looking for</span><span class="v" style="color:var(--sig)">Internships in networking and cybersecurity</span></div>
       </div>
     </div>
   </section>
@@ -798,7 +845,7 @@
             <p>A CLI that unifies C/C++ and Rust security tooling (Cppcheck, Flawfinder, Semgrep, cargo-audit,
               cargo-geiger and Clippy) under a single command, normalising their heterogeneous outputs into one
               <b>SARIF 2.1.0</b> report for GitHub Code Scanning. Finding deduplication, a common severity scale and
-              CI/CD-ready exit codes make it drop-in for pipelines: the flaw gets caught in review, not in the wild.</p>
+              CI/CD-ready exit codes let it run in a pipeline and stop a build when it finds a problem.</p>
             <div class="chips">
               <span class="chip">SAST</span><span class="chip">C / C++</span><span class="chip">Rust</span>
               <span class="chip">SARIF 2.1.0</span><span class="chip">Docker</span><span class="chip">CI/CD</span>
@@ -825,8 +872,7 @@
         <div class="fhead"><span class="fid">CASE-002</span><span class="sev crypto">applied crypto</span></div>
         <h3>Secure Distributed Marketplace</h3>
         <p>A distributed Python system where service-to-service REST communication is authenticated and protected with
-          RSA encryption, digital signatures and certificates: a hands-on take on making intercepted traffic worthless
-          to whoever intercepts it.</p>
+          RSA encryption, digital signatures and certificates, so that intercepted messages can't be read or altered.</p>
         <div class="chips"><span class="chip">RSA</span><span class="chip">PKI</span><span class="chip">REST</span><span class="chip">Python</span></div>
       </article>
 
@@ -835,8 +881,7 @@
         <div class="fhead"><span class="fid">CASE-003</span><span class="sev net">network</span></div>
         <h3>P4 Router &amp; Firewall</h3>
         <p>Programmed router and firewall functionality in P4, deployed as containerised network functions. Packet
-          filtering and forwarding logic written from the data plane up, where the decisions about who sees what
-          actually get made.</p>
+          filtering and forwarding logic are written directly at the data plane.</p>
         <div class="chips"><span class="chip">P4</span><span class="chip">SDN</span><span class="chip">Containers</span></div>
       </article>
 
@@ -844,9 +889,9 @@
         <span class="sweep"></span>
         <div class="fhead"><span class="fid">CASE-004</span><span class="sev crypto">research</span></div>
         <h3>ZKP &amp; Post-Quantum Crypto for 5G</h3>
-        <p>Research on Zero-Knowledge Proof frameworks and Post-Quantum Cryptography applied to 5G networks:
-          proving a claim without surrendering the data behind it, and asking what authentication looks like
-          once today's ciphers stop holding.</p>
+        <p>Research on Zero-Knowledge Proof frameworks and Post-Quantum Cryptography applied to 5G networks.
+          It looks at how to prove a claim without revealing the data behind it, and at authentication that
+          stays secure against quantum computers.</p>
         <div class="chips"><span class="chip">ZKP</span><span class="chip">PQC</span><span class="chip">5G</span></div>
       </article>
 
@@ -855,7 +900,7 @@
         <div class="fhead"><span class="fid">CASE-005</span><span class="sev core">offensive</span></div>
         <h3>Buffer Overflow &amp; Systems Labs</h3>
         <p>Hands-on offensive and systems-security labs from SEED Labs, including crafting buffer-overflow exploits and
-          analysing how a memory-safety failure quietly turns into full control of a program.</p>
+          analysing how a memory-safety bug can give an attacker control of a program.</p>
         <div class="chips"><span class="chip">Memory safety</span><span class="chip">Exploitation</span><span class="chip">Linux</span></div>
       </article>
 
@@ -864,7 +909,7 @@
         <div class="fhead"><span class="fid">CASE-006</span><span class="sev net">network</span></div>
         <h3>V2X Cooperative Traffic Management</h3>
         <p>Coordinated traffic through road-work zones using vehicle-to-everything (V2X) communication, modelling how
-          connected vehicles negotiate a shared bottleneck, and how much they broadcast to do it.</p>
+          connected vehicles negotiate a shared bottleneck.</p>
         <div class="chips"><span class="chip">V2X</span><span class="chip">Networks</span><span class="chip">Simulation</span></div>
       </article>
 
@@ -1103,10 +1148,10 @@
   <!-- ============ 10 CONTACT ============ -->
   <section id="contact">
     <div class="contact-box">
-      <div class="kicker reveal">// request access</div>
-      <h2 class="reveal">Build it so it <span class="a">can't be taken</span>.</h2>
-      <p class="reveal">Open to Application Security roles and internships, especially anywhere that treats
-        user data as a liability to be minimised, not an asset to be mined.</p>
+      <div class="kicker reveal">// contact</div>
+      <h2 class="reveal">Let's <span class="a">talk</span>.</h2>
+      <p class="reveal">I'm open to internships in networking and cybersecurity. If you have a role or a
+        project where I could help, I'd be glad to hear from you.</p>
       <div class="clinks reveal">
         <a class="btn primary" href="mailto:matilde0liveiraa@hotmail.com">matilde0liveiraa@hotmail.com</a>
         <button class="btn" id="copyMail">Copy address</button>
@@ -1130,6 +1175,7 @@
 
 <div id="toast" role="status"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
   "use strict";
@@ -1215,9 +1261,10 @@
 
   /* ---------------- hero ---------------- */
   var ROLES = [
-    "whoami: network and cybersecurity student",
-    "listening: risky bussiness",
-    "status: open to internships",
+    "whoami: msc student, uminho",
+    "focus: networks, crypto",
+    "lab: tryhackme, portswigger",
+    "internships: networks, cyber",
     "hint: hover a lit window"
   ];
   var started = false, roleEl = document.getElementById("cmdTxt");
@@ -1247,18 +1294,18 @@
     })();
   }
 
-  /* ---------------- the block: ten buildings, every lit window holds a piece of the file ---------------- */
+  /* ---------------- the street: ten buildings in 3D, every lit window holds a piece of the file ---------------- */
   var ZONES = [
-    {id:"position",    n:"01", label:"WHY SECURITY",      desc:"Why I work in security, and what I push back against.",           items:"#position .mcard"},
+    {id:"position",    n:"01", label:"WHY SECURITY",      desc:"Why I chose security, and what I want to contribute.",           items:"#position .mcard"},
     {id:"about",       n:"02", label:"ABOUT",             desc:"Who I am, how I train and what I focus on.",                      items:"#about .about:not([style]), #about .dossier"},
-    {id:"casefiles",   n:"03", label:"SECURITY PROJECTS", desc:"Security tooling, applied cryptography, networks and exploitation.", items:"#casefiles article"},
+    {id:"casefiles",   n:"03", label:"SECURITY PROJECTS", desc:"Security tooling, applied cryptography, networks and labs.", items:"#casefiles article"},
     {id:"engineering", n:"04", label:"SOFTWARE PROJECTS", desc:"Software I have built, from networking to AI.",                  items:"#engineering article"},
     {id:"practice",    n:"05", label:"PRACTICE",          desc:"How I keep learning: labs, CTFs and reading.",                    items:"#practice .lcard"},
     {id:"skills",      n:"06", label:"SKILLS",            desc:"Languages, tools and security areas I work with.",                items:"#skills .srow", wrap:"surface"},
     {id:"record",      n:"07", label:"EXPERIENCE",        desc:"Education and roles, most recent first.",                         items:"#record .item", wrap:"tl"},
     {id:"offrecord",   n:"08", label:"OUTSIDE WORK",      desc:"Volunteering and music.",                                         items:"#offrecord .lcard"},
     {id:"console",     n:"09", label:"TERMINAL",          desc:"A small shell you can type into. Start with help.",               items:"#console .console"},
-    {id:"contact",     n:"10", label:"CONTACT",           desc:"Email, LinkedIn and GitHub.",                                     items:"#contact .contact-box"}
+    {id:"contact",     n:"10", label:"CONTACT",           desc:"Open to internships in networking and cybersecurity.",                                     items:"#contact .contact-box"}
   ];
   var zoneById = {};
   ZONES.forEach(function(z, i){
@@ -1275,44 +1322,25 @@
     return txt.length > 62 ? txt.slice(0, 60) + "…" : txt;
   }
 
-  // lots on a 4×3 grid: [column, row, zone index (-1 = plain building), floors]
-  var LOTS = [
-    [0,0,0,8], [0,1,1,7], [1,0,2,7], [0,2,3,6], [1,1,4,6], [2,0,5,6],
-    [1,2,6,5], [2,1,7,5], [3,0,8,5], [2,2,9,4]
-  ];
-  var PER = 3.0, FH = .4, PLINTH = .12;
-
-  var city = document.getElementById("city"), panel = document.getElementById("panel"),
-      pBody = document.getElementById("pBody"), pK = document.getElementById("pK"),
-      pPin = document.getElementById("pPin"), pHome = document.getElementById("pHome"),
-      intro = document.getElementById("intro");
-  var NS = "http://www.w3.org/2000/svg";
-
-  function el(tag, attrs){
-    var n = document.createElementNS(NS, tag);
-    for(var k in attrs) n.setAttribute(k, attrs[k]);
-    return n;
-  }
-  function pts(list){ return list.map(function(p){ return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" "); }
+  var panel = document.getElementById("panel"), pBody = document.getElementById("pBody"),
+      pK = document.getElementById("pK"), pPin = document.getElementById("pPin"),
+      pHome = document.getElementById("pHome"), pClose = document.getElementById("pClose"),
+      intro = document.getElementById("intro"), hint = document.getElementById("walkhint"),
+      dots = [document.getElementById("td1"), document.getElementById("td2"), document.getElementById("td3")];
+  var canHover = window.matchMedia("(hover: hover)").matches;
   function rnd(a, b, c){
     var h = (a * 374761393 + b * 668265263 + (c || 0) * 2246822519) >>> 0;
     h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
     return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
   }
 
-  /* ---- panel: moves the real content node in, and back to the library afterwards ---- */
+  /* ---- thought bubble: moves the real content node in, and back to the library afterwards ---- */
   var current = null, pinned = false, curZone = -1, curItem = -1;
-  var windowEls = {};   // "zone:item" -> svg polygon
-  var unitEls = [];
+  var lit = [], labels = [], hovered = null, anchor = null;   // anchor: a 3D point the bubble points at
 
   function unmount(){
-    if(current){
-      var n = current.node;
-      n._slot.parentNode.insertBefore(n, n._slot.nextSibling);
-      current = null;
-    }
-    pBody.innerHTML = "";
-    pBody.scrollTop = 0;
+    if(current){ var n = current.node; n._slot.parentNode.insertBefore(n, n._slot.nextSibling); current = null; }
+    pBody.innerHTML = ""; pBody.scrollTop = 0;
   }
   function mount(node, wrapCls){
     if(!node._slot){ node._slot = document.createComment("slot"); node.parentNode.insertBefore(node._slot, node); }
@@ -1322,21 +1350,42 @@
     current = {node: node};
   }
   function setPin(v){ pinned = v; pPin.textContent = v ? "● pinned" : ""; }
+  function openBubble(a){
+    anchor = a || null;
+    var wasOpen = panel.classList.contains("open");
+    panel.classList.add("open");
+    document.body.classList.add("reading");
+    placeBubble(!wasOpen);
+  }
+  function closeBubble(){
+    // the window still under the pointer stays quiet until the pointer leaves it
+    pendingHover = hovered; clearTimeout(hoverT);
+    unmount(); setPin(false); curZone = -1; curItem = -1; anchor = null; mark(-1, -1);
+    panel.classList.remove("open");
+    document.body.classList.remove("reading");
+    dots.forEach(function(d){ d.classList.remove("on"); });
+  }
+  function paint(w){
+    if(!w.mesh) return;
+    var hot = w.on || w === hovered;
+    w.mesh.material.color.setHex(hot ? 0x5cf08f : (w.seen ? 0x163a24 : 0x241a3d));
+    w.edge.material.color.setHex(hot ? 0xe9fff1 : (w.seen ? 0x5cf08f : 0xa77bff));
+  }
   function mark(zi, ii){
-    Object.keys(windowEls).forEach(function(k){ windowEls[k].classList.remove("on"); });
-    unitEls.forEach(function(u, k){ u.classList.toggle("on", k === zi); });
-    if(ii >= 0 && windowEls[zi + ":" + ii]){ windowEls[zi + ":" + ii].classList.add("on", "seen"); }
+    lit.forEach(function(w){ w.on = (w.zi === zi && w.ii === ii); if(w.on) w.seen = true; paint(w); });
+    labels.forEach(function(l, k){ l.el.classList.toggle("on", k === zi); });
     document.querySelectorAll("#navlinks a").forEach(function(a){
       a.classList.toggle("active", zi >= 0 && a.getAttribute("href") === "#" + ZONES[zi].id);
     });
   }
+  function litOf(zi, ii){ for(var k = 0; k < lit.length; k++) if(lit[k].zi === zi && lit[k].ii === ii) return lit[k]; return null; }
 
   function goHome(){
     unmount(); setPin(false); curZone = -1; curItem = -1; mark(-1, -1);
-    pK.textContent = "home · " + ZONES.length + " buildings · " + Object.keys(windowEls).length + " windows";
+    pK.textContent = "home · " + ZONES.length + " buildings · " + (lit.length || 35) + " windows";
     mount(intro);
+    openBubble(null);
   }
-
   function showZone(zi, pin){
     var z = ZONES[zi];
     unmount(); curZone = zi; curItem = -1; mark(zi, -1);
@@ -1356,11 +1405,12 @@
     });
     wrap.appendChild(h); wrap.appendChild(d); wrap.appendChild(ul);
     pBody.appendChild(wrap);
+    openBubble(labels[zi] ? labels[zi].pos : null);
   }
-
   function showItem(zi, ii, pin){
     var z = ZONES[zi], node = z.nodes[ii];
     if(!node) return;
+    var w = litOf(zi, ii);
     if(curZone === zi && curItem === ii && current){ if(pin) setPin(true); return; }
     unmount(); curZone = zi; curItem = ii; mark(zi, ii);
     if(pin !== undefined) setPin(pin);
@@ -1378,165 +1428,395 @@
       next.addEventListener("click", function(){ showItem(zi, (ii + 1) % z.nodes.length, true); });
       pg.appendChild(prev); pg.appendChild(next); pBody.appendChild(pg);
     }
-    if(pinned && z.id === "console" && window.matchMedia("(hover: hover)").matches){
+    openBubble(w && w.mesh ? w.mesh.position : (labels[zi] ? labels[zi].pos : null));
+    if(pinned && z.id === "console" && canHover){
       var ci = document.getElementById("cin"); if(ci) setTimeout(function(){ ci.focus(); }, 30);
     }
   }
-
   function openZone(zi){
-    if(ZONES[zi].nodes.length === 1) showItem(zi, 0, true);
-    else showZone(zi, true);
+    flyTo(zi);
+    if(ZONES[zi].nodes.length === 1) setTimeout(function(){ showItem(zi, 0, true); }, reduced ? 0 : 700);
+    else setTimeout(function(){ showZone(zi, true); }, reduced ? 0 : 700);
   }
   function route(hash){
-    if(!hash || hash === "#" ) return false;
+    if(!hash || hash === "#") return false;
     if(hash === "#home" || hash === "#top"){ goHome(); return true; }
     var zi = zoneById[hash.slice(1)];
     if(zi === undefined) return false;
     openZone(zi); return true;
   }
 
-  /* ---- drawing ---- */
-  var builtW = 0, builtH = 0, canHover = window.matchMedia("(hover: hover)").matches;
-  function buildCity(){
-    var W = window.innerWidth, H = window.innerHeight, mobile = W <= 760;
-    builtW = W; builtH = H;
-    var panelW = Math.min(440, W * .38);
-    var ax0 = mobile ? 6 : 12, ay0 = 64, ax1 = mobile ? W - 6 : W - panelW - 36, ay1 = mobile ? H * .54 - 4 : H - 10;
-
-    // fit the whole block into the free area
-    var bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
-    function grow(x, y, z){
-      var sx = (x - y) / 2, sy = (x + y) / 4 - z;
-      if(sx < bx0) bx0 = sx; if(sx > bx1) bx1 = sx; if(sy < by0) by0 = sy; if(sy > by1) by1 = sy;
+  /* bubble placement: beside its anchor, trailing three shrinking dots back to it */
+  var projV = null;
+  function screenOf(v3){
+    if(!v3 || !camera) return null;
+    projV.copy(v3).project(camera);
+    if(projV.z > 1 || projV.z < -1) return null;
+    return {x:(projV.x * .5 + .5) * window.innerWidth, y:(-projV.y * .5 + .5) * window.innerHeight};
+  }
+  function placeBubble(snap){
+    if(!panel.classList.contains("open")) return;
+    var W = window.innerWidth, H = window.innerHeight, bw = panel.offsetWidth, bh = panel.offsetHeight;
+    var A = anchor ? screenOf(anchor) : null, x, y, top = 72, m = 12;
+    if(A){
+      var right = A.x + 70 + bw < W - m;
+      x = right ? A.x + 70 : A.x - 70 - bw;
+      y = A.y - bh - 60;
+      if(y < top) y = A.y + 60;                                // no room above: float below instead
+      if(y + bh > H - m) y = Math.max(top, H - m - bh);
+      x = Math.max(m, Math.min(W - m - bw, x));
+    }else{
+      x = (W - bw) / 2; y = Math.max(top, (H - bh) / 2 - 20);
     }
-    var span = 3 * PER + 2;
-    var gm = mobile ? 0 : .3;   // on phones, let the ground plate bleed so the buildings get the width
-    grow(-gm, -gm, 0); grow(span + gm, -gm, 0); grow(-gm, 2 * PER + 2 + gm, 0); grow(span + gm, 2 * PER + 2 + gm, 0);
-    LOTS.forEach(function(l){ var x = l[0] * PER, y = l[1] * PER, top = PLINTH + l[3] * FH + .62; grow(x, y, top); grow(x + 2, y, top); grow(x, y + 2, top); });
-    var TW = Math.min((ax1 - ax0) / (bx1 - bx0), (ay1 - ay0) / (by1 - by0));
-    var ox = ax0 + ((ax1 - ax0) - (bx1 - bx0) * TW) / 2 - bx0 * TW;
-    var oy = ay0 + ((ay1 - ay0) - (by1 - by0) * TW) / 2 - by0 * TW;
-    function P(x, y, z){ return [ox + (x - y) / 2 * TW, oy + ((x + y) / 4 - z) * TW]; }
-
-    city.setAttribute("viewBox", "0 0 " + W + " " + H);
-    while(city.firstChild) city.removeChild(city.firstChild);
-    windowEls = {}; unitEls = [];
-    var defs = el("defs", {}), lg = el("linearGradient", {id:"winHot", x1:"0", y1:"0", x2:"1", y2:"1"});
-    [["0","#5cf08f"],[".55","#a77bff"],["1","#ff5f7a"]].forEach(function(st){ lg.appendChild(el("stop", {offset:st[0], "stop-color":st[1]})); });
-    defs.appendChild(lg); city.appendChild(defs);
-
-    // ground and streets
-    var gy = 2 * PER + 2;
-    city.appendChild(el("polygon", {points:pts([P(-.7,-.7,0), P(span+.7,-.7,0), P(span+.7,gy+.7,0), P(-.7,gy+.7,0)]), "class":"street", fill:"rgba(92,240,143,.02)"}));
-    for(var t = 1; t <= 3; t++){
-      var sx = t * PER - (PER - 2) / 2, a1 = P(sx, -.7, 0), a2 = P(sx, gy + .7, 0);
-      city.appendChild(el("line", {x1:a1[0], y1:a1[1], x2:a2[0], y2:a2[1], "class":"street"}));
+    panel.classList.toggle("settled", !snap);
+    panel.style.setProperty("--bx", Math.round(x) + "px");
+    panel.style.setProperty("--by", Math.round(y) + "px");
+    // dots from the anchor towards the nearest bubble edge
+    if(A){
+      var tx = Math.max(x + 30, Math.min(x + bw - 30, A.x)), ty = A.y < y ? y + 6 : (A.y > y + bh ? y + bh - 6 : y + bh / 2);
+      [[.2, 8],[.45, 12],[.72, 17]].forEach(function(t, k){
+        var dx = A.x + (tx - A.x) * t[0], dy = A.y + (ty - A.y) * t[0];
+        dots[k].style.width = dots[k].style.height = t[1] + "px";
+        dots[k].style.transform = "translate(" + (dx - t[1] / 2) + "px," + (dy - t[1] / 2) + "px)";
+        dots[k].classList.add("on");
+      });
+      panel.style.setProperty("--ox", (A.x < x ? "0" : "100%")); panel.style.setProperty("--oy", (A.y < y ? "0" : "100%"));
+    }else{
+      dots.forEach(function(d){ d.classList.remove("on"); });
     }
-    for(t = 1; t <= 2; t++){
-      var sy = t * PER - (PER - 2) / 2, b1 = P(-.7, sy, 0), b2 = P(span + .7, sy, 0);
-      city.appendChild(el("line", {x1:b1[0], y1:b1[1], x2:b2[0], y2:b2[1], "class":"street"}));
+  }
+
+  pHome.addEventListener("click", goHome);
+  pClose.addEventListener("click", closeBubble);
+
+  /* ---------------- 3D ---------------- */
+  var T = window.THREE, canvas = document.getElementById("city3d"), labelsEl = document.getElementById("labels");
+  var renderer, scene, camera, raycaster, pickables = [];
+  var HALF = 9, DEPTH = 12, WID = 14, FLOOR = 3.2, EYE = 1.7, ROW = 21;
+  var FLOORS = [7, 6, 8, 6, 5, 7, 6, 5, 5, 6];
+  var LAYOUT = [];
+  var START = {x:0, z:12, yaw:0, pitch:.14};
+  var cam = {x:START.x, z:START.z, yaw:START.yaw, pitch:START.pitch};
+  var keys = {}, padF = 0, wheel = 0, vel = {f:0, s:0}, fly = null;
+  var ptr = {ndc:null, inside:false, down:false, lx:0, ly:0, moved:0, id:null};
+  var hoverT = null, pendingHover = null;
+
+  function hideHint(){ if(hint) hint.classList.add("gone"); }
+  setTimeout(hideHint, 9000);
+
+  function flyTo(zi){
+    var L = LAYOUT[zi];
+    if(!L) return;
+    var to = {x: -L.side * 2.2, z: L.zc, yaw: L.side < 0 ? Math.PI / 2 : -Math.PI / 2, pitch: .3};
+    if(reduced){ cam.x = to.x; cam.z = to.z; cam.yaw = to.yaw; cam.pitch = to.pitch; return; }
+    var dy = ((to.yaw - cam.yaw + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+    fly = {t:0, dur:1.1, from:{x:cam.x, z:cam.z, yaw:cam.yaw, pitch:cam.pitch}, to:{x:to.x, z:to.z, yaw:cam.yaw + dy, pitch:to.pitch}};
+    hideHint();
+  }
+  function resetView(){
+    fly = {t:0, dur:1, from:{x:cam.x, z:cam.z, yaw:cam.yaw, pitch:cam.pitch}, to:{x:START.x, z:START.z, yaw:START.yaw, pitch:START.pitch}};
+    closeBubble();
+  }
+
+  function facadeTexture(wU, hU, floors, front, seed){
+    var S = 32, cw = Math.round(wU * S), ch = Math.round(hU * S);
+    var c = document.createElement("canvas"); c.width = cw; c.height = ch;
+    var x = c.getContext("2d");
+    x.fillStyle = "#0a0f0c"; x.fillRect(0, 0, cw, ch);
+    var cols = Math.max(2, Math.round(wU / 3.5)), gap = wU / cols;
+    for(var f = 0; f < floors; f++){
+      var slab = ch - f * FLOOR * S;
+      x.strokeStyle = "rgba(92,240,143,.12)"; x.lineWidth = 1;
+      x.beginPath(); x.moveTo(0, slab - .5); x.lineTo(cw, slab - .5); x.stroke();
+      if(f === 0 && front){
+        // street level: a lit entrance between two shop windows
+        var dw = 2.4 * S, dh = 2.7 * S;
+        x.fillStyle = "rgba(92,240,143,.07)"; x.fillRect(cw / 2 - dw / 2, ch - dh, dw, dh);
+        x.strokeStyle = "rgba(92,240,143,.6)"; x.lineWidth = 2; x.strokeRect(cw / 2 - dw / 2 + 1, ch - dh + 1, dw - 2, dh);
+        x.strokeStyle = "rgba(92,240,143,.25)"; x.lineWidth = 1.5;
+        x.strokeRect(cw * .1, ch - 2.3 * S, cw * .26, 1.6 * S);
+        x.strokeRect(cw * .64, ch - 2.3 * S, cw * .26, 1.6 * S);
+        continue;
+      }
+      for(var k = 0; k < cols; k++){
+        var cx = (k + .5) * gap * S, wx = 1.6 * S, wy = 1.9 * S, yy = ch - (f * FLOOR + .65) * S - wy;
+        x.fillStyle = rnd(seed, f * 7 + k, 5) < .12 ? "rgba(92,240,143,.08)" : "#050706";
+        x.fillRect(cx - wx / 2, yy, wx, wy);
+        x.strokeStyle = "rgba(92,240,143,.26)"; x.lineWidth = 1.5;
+        x.strokeRect(cx - wx / 2 + .75, yy + .75, wx - 1.5, wy - 1.5);
+      }
+    }
+    var t = new T.CanvasTexture(c);
+    t.anisotropy = renderer.capabilities.getMaxAnisotropy ? Math.min(8, renderer.capabilities.getMaxAnisotropy()) : 1;
+    return t;
+  }
+
+  function buildStreet(){
+    var GREEN = 0x5cf08f, VIOLET = 0xa77bff;
+    function lineMat(c, o){ return new T.LineBasicMaterial({color:c, transparent:true, opacity:o}); }
+    function line(a, b, mat){ scene.add(new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(a[0],a[1],a[2]), new T.Vector3(b[0],b[1],b[2])]), mat)); }
+
+    var ground = new T.Mesh(new T.PlaneGeometry(260, 300), new T.MeshBasicMaterial({color:0x050706}));
+    ground.rotation.x = -Math.PI / 2; ground.position.set(0, 0, -50); scene.add(ground);
+    var curb = lineMat(GREEN, .3);
+    line([-6.5, .02, 30], [-6.5, .02, -140], curb); line([6.5, .02, 30], [6.5, .02, -140], curb);
+    var dashGeo = new T.PlaneGeometry(.16, 2.2), dashMat = new T.MeshBasicMaterial({color:VIOLET, transparent:true, opacity:.5});
+    for(var z = 26; z > -140; z -= 6){ var d = new T.Mesh(dashGeo, dashMat); d.rotation.x = -Math.PI / 2; d.position.set(0, .02, z); scene.add(d); }
+    // zebra crossings where the side alleys meet the street
+    var zebra = new T.MeshBasicMaterial({color:GREEN, transparent:true, opacity:.14}), zg = new T.PlaneGeometry(.55, 3);
+    for(var r = 0; r < 5; r++){
+      var az = -10 - r * ROW - ROW / 2;
+      for(var sx = -5.5; sx <= 5.5; sx += 1.1){ var zb = new T.Mesh(zg, zebra); zb.rotation.x = -Math.PI / 2; zb.position.set(sx, .015, az); scene.add(zb); }
+      // street lamps on both sidewalks
+      [-7.6, 7.6].forEach(function(lx){
+        line([lx, 0, az], [lx, 5.4, az], lineMat(GREEN, .4));
+        line([lx, 5.4, az], [lx * .9, 5.6, az], lineMat(GREEN, .4));
+        var bulb = new T.Mesh(new T.SphereGeometry(.17, 10, 8), new T.MeshBasicMaterial({color:VIOLET}));
+        bulb.position.set(lx * .9, 5.5, az); scene.add(bulb);
+      });
     }
 
-    LOTS.slice().sort(function(a, b){ return (a[0] + a[1]) - (b[0] + b[1]) || a[0] - b[0]; }).forEach(function(l){
-      var zi = l[2], z = zi >= 0 ? ZONES[zi] : null, F = l[3];
-      var x = l[0] * PER, y = l[1] * PER, x1 = x + 2, y1 = y + 2, top = PLINTH + F * FH;
-      var g = el("g", {"class": z ? "unit" : "blk"});
-      function box(bx, by, bdx, bdy, bh, z0, roofCls){
-        var X1 = bx + bdx, Y1 = by + bdy, tp = z0 + bh;
-        g.appendChild(el("polygon", {points:pts([P(bx,Y1,z0), P(X1,Y1,z0), P(X1,Y1,tp), P(bx,Y1,tp)]), "class":"fl"}));
-        g.appendChild(el("polygon", {points:pts([P(X1,by,z0), P(X1,Y1,z0), P(X1,Y1,tp), P(X1,by,tp)]), "class":"fr"}));
-        return g.appendChild(el("polygon", {points:pts([P(bx,by,tp), P(X1,by,tp), P(X1,Y1,tp), P(bx,Y1,tp)]), "class":"ft" + (roofCls ? " " + roofCls : "")}));
-      }
-      var roof = box(x, y, 2, 2, top, 0, z ? "roof" : "");
+    ZONES.forEach(function(z, zi){
+      var side = zi % 2 === 0 ? -1 : 1, row = Math.floor(zi / 2), zc = -10 - row * ROW, floors = FLOORS[zi], h = floors * FLOOR;
+      var cx = side * (HALF + DEPTH / 2);
+      var geo = new T.BoxGeometry(DEPTH, h, WID);
+      var front = new T.MeshBasicMaterial({map: facadeTexture(WID, h, floors, true, zi)});
+      var sideM = new T.MeshBasicMaterial({map: facadeTexture(DEPTH, h, floors, false, zi + 20)});
+      var roofM = new T.MeshBasicMaterial({color:0x0c120e});
+      var mats = side < 0 ? [front, sideM, roofM, roofM, sideM, sideM] : [sideM, front, roofM, roofM, sideM, sideM];
+      var b = new T.Mesh(geo, mats); b.position.set(cx, h / 2, zc); b.userData = {zone: zi};
+      scene.add(b); pickables.push(b);
+      var e = new T.LineSegments(new T.EdgesGeometry(geo), lineMat(GREEN, .5)); e.position.copy(b.position); scene.add(e);
+      var rg = new T.BoxGeometry(3.2, 2.2, 3.2), rm = new T.Mesh(rg, roofM); rm.position.set(cx, h + 1.1, zc); scene.add(rm);
+      var re = new T.LineSegments(new T.EdgesGeometry(rg), lineMat(GREEN, .3)); re.position.copy(rm.position); scene.add(re);
+      line([cx, h + 2.2, zc], [cx, h + 5.5, zc], lineMat(GREEN, .35));
+      var beacon = new T.Mesh(new T.SphereGeometry(.22, 10, 8), new T.MeshBasicMaterial({color:VIOLET})); beacon.position.set(cx, h + 5.6, zc); scene.add(beacon);
 
-      // every floor: two windows on each visible face
-      var slots = [];
-      for(var f = F - 1; f >= 0; f--){
-        var w0 = PLINTH + f * FH + .09, w1 = w0 + FH - .18;
-        [[.22,.78],[1.22,1.78]].forEach(function(c, ci){
-          slots.push({f:f, face:0, c:ci, pts:[P(x+c[0],y1,w0), P(x+c[1],y1,w0), P(x+c[1],y1,w1), P(x+c[0],y1,w1)]});
-        });
-        [[.22,.78],[1.22,1.78]].forEach(function(c, ci){
-          slots.push({f:f, face:1, c:ci, pts:[P(x1,y+c[0],w0), P(x1,y+c[1],w0), P(x1,y+c[1],w1), P(x1,y+c[0],w1)]});
-        });
-      }
-      // lit windows: scattered through the upper floors, then read top-down
-      var lit = [];
-      if(z){
-        var n = z.nodes.length, pool = slots.slice(0, Math.min(slots.length, Math.ceil(n / 4) * 4));
-        pool.forEach(function(sl, k){ sl.r = rnd(zi, k, 3); });
-        lit = pool.slice().sort(function(a, b){ return a.r - b.r; }).slice(0, n);
-        lit.sort(function(a, b){ return (b.f - a.f) || (a.face - b.face) || (a.c - b.c); });
-      }
-      slots.forEach(function(sl){
-        var k = lit.indexOf(sl);
-        var w = el("polygon", {points:pts(sl.pts), "class": k >= 0 ? "wa" : "wn"});
-        if(k >= 0){
-          (function(ii){
-            windowEls[zi + ":" + ii] = w;
-            if(canHover) w.addEventListener("mouseenter", function(){ if(!pinned) showItem(zi, ii); });
-            w.addEventListener("click", function(e){ e.stopPropagation(); showItem(zi, ii, true); });
-          })(k);
-        }
-        g.appendChild(w);
+      // lit windows sit on the lowest floors, at eye height from the street
+      var n = z.nodes.length, need = Math.max(1, Math.ceil(n / 4)), slots = [];
+      for(var f = 1; f <= need; f++) for(var k = 0; k < 4; k++) slots.push({f:f, off:(k - 1.5) * (WID / 4), r:rnd(zi, f * 4 + k, 9)});
+      var chosen = slots.sort(function(a, b2){ return a.r - b2.r; }).slice(0, n);
+      // reading order for someone standing in the street facing the building: top floor first, left to right
+      chosen.sort(function(a, b2){ return (b2.f - a.f) || (side < 0 ? b2.off - a.off : a.off - b2.off); });
+      chosen.forEach(function(sl, ii){
+        var m = new T.Mesh(new T.PlaneGeometry(1.6, 1.9), new T.MeshBasicMaterial({color:0x241a3d}));
+        m.rotation.y = side < 0 ? Math.PI / 2 : -Math.PI / 2;
+        m.position.set(side * (HALF - .05), sl.f * FLOOR + 1.6, zc + sl.off);
+        m.userData = {zone: zi, item: ii};
+        var edge = new T.LineSegments(new T.EdgesGeometry(new T.PlaneGeometry(1.75, 2.05)), new T.LineBasicMaterial({color:VIOLET}));
+        edge.position.z = .01; m.add(edge);
+        scene.add(m); pickables.push(m);
+        lit.push({mesh:m, edge:edge, zi:zi, ii:ii, on:false, seen:false});
       });
 
-      if(z){
-        box(x + .75, y + .75, .5, .5, .3, top);                   // rooftop plant room
-        // the plant room sits on the roof; let taps fall through to the roof underneath
-        for(var q = 1; q <= 3; q++) g.children[g.children.length - q].setAttribute("pointer-events", "none");
-        var c = P(x + 1, y + 1, top + .3);
-        g.appendChild(el("circle", {cx:c[0].toFixed(1), cy:(c[1] - 7).toFixed(1), r:2.2, "class":"beacon"}));
-        var tx = el("text", {x:c[0].toFixed(1), y:(c[1] - 14).toFixed(1), "class":"num"});
-        tx.textContent = mobile ? z.n : z.n + " " + z.label;
-        g.appendChild(tx);
-        if(canHover) roof.addEventListener("mouseenter", function(){ if(!pinned && curZone !== zi) showZone(zi); });
-        roof.addEventListener("click", function(e){ e.stopPropagation(); showZone(zi, true); });
-        unitEls[zi] = g;
-      }
-      city.appendChild(g);
+      // shop sign above the entrance
+      var lab = document.createElement("div");
+      lab.className = "blabel"; lab.innerHTML = "<b>" + z.n + "</b>" + esc(z.label);
+      lab.addEventListener("click", function(){ flyTo(zi); showZone(zi, true); });
+      labelsEl.appendChild(lab);
+      labels[zi] = {el:lab, pos:new T.Vector3(side * (HALF - .15), 3.05, zc)};
+      LAYOUT[zi] = {side:side, zc:zc, h:h};
     });
 
-    // restore highlight after a rebuild
-    mark(curZone, curItem);
+    // distant skyline so the street doesn't end in a void
+    var farM = new T.MeshBasicMaterial({color:0x080b09}), farE = lineMat(GREEN, .12);
+    for(var q = 0; q < 22; q++){
+      var sd = q % 2 ? 1 : -1, fx = sd * (30 + rnd(q, 1, 2) * 45), fz = 10 - rnd(q, 3, 4) * 150, fh = 14 + rnd(q, 5, 6) * 40;
+      var fw = 8 + rnd(q, 7, 8) * 10, fg = new T.BoxGeometry(fw, fh, fw);
+      var fm = new T.Mesh(fg, farM); fm.position.set(fx, fh / 2, fz); scene.add(fm);
+      var fe = new T.LineSegments(new T.EdgesGeometry(fg), farE); fe.position.copy(fm.position); scene.add(fe);
+    }
   }
 
-  if(city && panel){
-    buildCity();
-    city.addEventListener("click", function(){ if(pinned) setPin(false); });
-    pHome.addEventListener("click", goHome);
-    window.addEventListener("keydown", function(e){ if(e.key === "Escape" && pinned && !document.getElementById("pal").classList.contains("open")) setPin(false); });
-    var rT;
-    window.addEventListener("resize", function(){
-      clearTimeout(rT);
-      rT = setTimeout(function(){
-        if(window.innerWidth !== builtW || Math.abs(window.innerHeight - builtH) > 120) buildCity();
-      }, 160);
-    });
-    // any in-page link to a zone opens it in the panel instead of scrolling
-    document.addEventListener("click", function(e){
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if(!a) return;
-      if(route(a.getAttribute("href"))){
-        e.preventDefault();
-        if(sheet && sheet.classList.contains("open")) burger.click();
-      }
-    });
-    window.addEventListener("hashchange", function(){ route(location.hash); });
-    if(!route(location.hash)) goHome();
+  // read-only camera state (handy for checking the page from a test runner)
+  window.__street = function(){ return {x:cam.x, z:cam.z, yaw:cam.yaw, pitch:cam.pitch, flying:!!fly}; };
+  function resize(){
+    var W = window.innerWidth, H = window.innerHeight;
+    renderer.setSize(W, H, false);
+    camera.aspect = W / H; camera.fov = W < 700 ? 78 : 66; camera.updateProjectionMatrix();
+    placeBubble(true);
   }
 
-  /* ---------------- sensor reticle over the city ---------------- */
+  function pick(){
+    raycaster.setFromCamera(ptr.ndc, camera);
+    var hit = raycaster.intersectObjects(pickables, false)[0];
+    return hit ? hit.object.userData : null;
+  }
+  function setHovered(w){
+    if(w === hovered) return;
+    var prev = hovered; hovered = w;
+    if(prev) paint(prev);
+    if(w) paint(w);
+  }
+  function hoverTick(){
+    var u = pick(), w = u && u.item !== undefined ? litOf(u.zone, u.item) : null;
+    setHovered(w);
+    canvas.style.cursor = ptr.down ? "grabbing" : (u ? "pointer" : "grab");
+    // a short dwell before swapping the bubble, so passing over windows on the way doesn't flicker it
+    if(w !== pendingHover){
+      pendingHover = w; clearTimeout(hoverT);
+      if(w && !pinned) hoverT = setTimeout(function(){ if(hovered === w && !pinned) showItem(w.zi, w.ii); }, 140);
+    }
+  }
+  function clickAt(){
+    var u = pick();
+    if(u && u.item !== undefined) showItem(u.zone, u.item, true);
+    else if(u && u.zone !== undefined) showZone(u.zone, true);
+    else if(pinned) setPin(false);
+    else closeBubble();
+  }
+
+  function setNdc(e){
+    var r = canvas.getBoundingClientRect();
+    ptr.ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  }
+
+  var last = 0;
+  function frame(t){
+    var dt = Math.min(.05, (t - last) / 1000 || 0); last = t;
+    if(fly){
+      fly.t += dt / fly.dur;
+      var k = fly.t >= 1 ? 1 : (fly.t < .5 ? 4 * fly.t * fly.t * fly.t : 1 - Math.pow(-2 * fly.t + 2, 3) / 2);
+      cam.x = fly.from.x + (fly.to.x - fly.from.x) * k; cam.z = fly.from.z + (fly.to.z - fly.from.z) * k;
+      cam.yaw = fly.from.yaw + (fly.to.yaw - fly.from.yaw) * k; cam.pitch = fly.from.pitch + (fly.to.pitch - fly.from.pitch) * k;
+      if(fly.t >= 1) fly = null;
+    }else{
+      var fwd = ((keys.w || keys.arrowup) ? 1 : 0) - ((keys.s || keys.arrowdown) ? 1 : 0) + padF;
+      var str = (keys.d ? 1 : 0) - (keys.a ? 1 : 0);
+      var turn = (keys.arrowleft ? 1 : 0) - (keys.arrowright ? 1 : 0);
+      cam.yaw += turn * 1.7 * dt;
+      vel.f += (fwd * 13 - vel.f) * Math.min(1, dt * 7);
+      vel.s += (str * 10 - vel.s) * Math.min(1, dt * 7);
+      var fx = -Math.sin(cam.yaw), fz = -Math.cos(cam.yaw), rx = Math.cos(cam.yaw), rz = -Math.sin(cam.yaw);
+      cam.x += (fx * (vel.f * dt + wheel) + rx * vel.s * dt);
+      cam.z += (fz * (vel.f * dt + wheel) + rz * vel.s * dt);
+      wheel *= .82; if(Math.abs(wheel) < .001) wheel = 0;
+    }
+    cam.x = Math.max(-7.4, Math.min(7.4, cam.x));
+    cam.z = Math.max(-104, Math.min(18, cam.z));
+    camera.position.set(cam.x, EYE, cam.z);
+    camera.rotation.set(cam.pitch, cam.yaw, 0);
+    camera.updateMatrixWorld();
+
+    if(canHover && ptr.inside && !ptr.down) hoverTick();
+
+    var W = window.innerWidth, H = window.innerHeight;
+    labels.forEach(function(l){
+      var p = screenOf(l.pos), dist = camera.position.distanceTo(l.pos);
+      // only the nearby signs, so the far end of the street doesn't pile up labels
+      var maxD = W < 700 ? 30 : 50;
+      if(!p || dist > maxD || p.x < -200 || p.x > W + 200){ l.el.style.display = "none"; return; }
+      l.el.style.display = "";
+      l.el.style.opacity = Math.max(0, Math.min(1, (maxD - dist) / 12)).toFixed(2);
+      l.el.style.transform = "translate(" + Math.round(p.x) + "px," + Math.round(p.y) + "px) translate(-50%,-100%)";
+    });
+    placeBubble(false);
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+
+  if(T && canvas){
+    try{
+      renderer = new T.WebGLRenderer({canvas:canvas, antialias:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      scene = new T.Scene();
+      scene.background = new T.Color(0x07080a);
+      scene.fog = new T.Fog(0x07080a, 16, 110);
+      camera = new T.PerspectiveCamera(66, 1, .1, 500);
+      camera.rotation.order = "YXZ";
+      raycaster = new T.Raycaster();
+      projV = new T.Vector3();
+      ptr.ndc = new T.Vector2(-9, -9);
+      buildStreet();
+      resize();
+      window.addEventListener("resize", resize);
+
+      canvas.addEventListener("pointerdown", function(e){
+        ptr.down = true; ptr.lx = e.clientX; ptr.ly = e.clientY; ptr.moved = 0; ptr.id = e.pointerId;
+        canvas.setPointerCapture(e.pointerId); fly = null; setNdc(e);
+      });
+      canvas.addEventListener("pointermove", function(e){
+        ptr.inside = true; setNdc(e);
+        if(!ptr.down) return;
+        var dx = e.clientX - ptr.lx, dy = e.clientY - ptr.ly;
+        ptr.lx = e.clientX; ptr.ly = e.clientY; ptr.moved += Math.abs(dx) + Math.abs(dy);
+        cam.yaw += dx * .0034;
+        cam.pitch = Math.max(-.5, Math.min(.95, cam.pitch + dy * .0034));
+        if(ptr.moved > 8) hideHint();
+      });
+      canvas.addEventListener("pointerup", function(e){
+        if(ptr.down && ptr.moved < 7){ setNdc(e); clickAt(); }
+        ptr.down = false;
+        try{ canvas.releasePointerCapture(e.pointerId); }catch(err){}
+      });
+      canvas.addEventListener("pointercancel", function(){ ptr.down = false; });
+      canvas.addEventListener("pointerleave", function(){ ptr.inside = false; setHovered(null); pendingHover = null; clearTimeout(hoverT); });
+      canvas.addEventListener("wheel", function(e){
+        e.preventDefault(); fly = null;
+        wheel += Math.max(-1.2, Math.min(1.2, e.deltaY * .01)); hideHint();
+      }, {passive:false});
+
+      function typing(e){ var t = e.target; return t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA"); }
+      window.addEventListener("keydown", function(e){
+        if(typing(e) || document.getElementById("pal").classList.contains("open") || e.metaKey || e.ctrlKey) return;
+        var k = e.key.toLowerCase();
+        if(["w","a","s","d","arrowup","arrowdown","arrowleft","arrowright"].indexOf(k) !== -1){
+          keys[k] = true; fly = null; hideHint(); e.preventDefault();
+        }
+      });
+      window.addEventListener("keyup", function(e){ keys[e.key.toLowerCase()] = false; });
+      window.addEventListener("blur", function(){ keys = {}; padF = 0; });
+
+      document.querySelectorAll(".pad button").forEach(function(b){
+        var v = +b.getAttribute("data-move");
+        b.addEventListener("pointerdown", function(e){ e.preventDefault(); padF = v; fly = null; hideHint(); });
+        ["pointerup","pointercancel","pointerleave"].forEach(function(ev){ b.addEventListener(ev, function(){ padF = 0; }); });
+      });
+
+      requestAnimationFrame(frame);
+    }catch(err){ T = null; }
+  }
+  if(!T){
+    // no WebGL: keep everything reachable through the bubble and the menus
+    document.body.classList.add("no3d");
+    canvas.style.display = "none";
+  }
+
+  window.addEventListener("keydown", function(e){
+    if(e.key !== "Escape" || document.getElementById("pal").classList.contains("open")) return;
+    if(pinned) setPin(false); else if(panel.classList.contains("open")) closeBubble();
+  });
+  // any in-page link to a building walks you to it instead of scrolling
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(!a) return;
+    if(route(a.getAttribute("href"))){
+      e.preventDefault();
+      if(sheet && sheet.classList.contains("open")) burger.click();
+    }
+  });
+  window.addEventListener("hashchange", function(){ route(location.hash); });
+  // arriving: just the street. A link with a building in it still walks you there.
+  if(!route(location.hash) && !T) goHome();
+
+  /* ---------------- sensor reticle and torch over the street ---------------- */
   var tbx = document.getElementById("trackbox"), tbxy = document.getElementById("tbxy"), spot = document.getElementById("spot");
   if(tbx && canHover && !reduced){
     window.addEventListener("mousemove", function(e){
-      if(!(e.target.closest && e.target.closest("#city"))){ tbx.classList.remove("on"); spot.classList.remove("on"); return; }
-      spot.style.setProperty("--mx", e.clientX + "px");
-      spot.style.setProperty("--my", e.clientY + "px");
+      var bg = document.getElementById("cityBg");
+      if(!(e.target.closest && (e.target.closest("#city3d")))){
+        tbx.classList.remove("on"); spot.classList.remove("on");
+        bg.style.setProperty("--mx", "-999px"); bg.style.setProperty("--my", "-999px");
+        return;
+      }
+      bg.style.setProperty("--mx", e.clientX + "px");
+      bg.style.setProperty("--my", e.clientY + "px");
       spot.classList.add("on");
       tbx.style.transform = "translate(" + (e.clientX - 32) + "px," + (e.clientY - 32) + "px)";
       tbx.classList.add("on");
-      tbxy.textContent = String(e.clientX).padStart(4,"0") + "," + String(e.clientY).padStart(3,"0");
+      // the street is laid out around Porto: metres walked become latitude and longitude
+      var lat = 41.1579 - cam.z / 111320, lon = -8.6291 + cam.x / (111320 * Math.cos(41.1579 * Math.PI / 180));
+      tbxy.textContent = lat.toFixed(5) + "° N · " + Math.abs(lon).toFixed(5) + "° W";
     }, {passive:true});
   }
 
@@ -1604,9 +1884,9 @@
       palList = document.getElementById("palList"), palBtn = document.getElementById("palBtn");
 
   var ITEMS = [
-    {ic:"#", label:"Why security",             meta:"building", go:"#position", kw:"manifesto surveillance privacy stance government perimeter ethics"},
+    {ic:"#", label:"Why security",             meta:"building", go:"#position", kw:"motivation why security goals privacy people"},
     {ic:"#", label:"About",                    meta:"building", go:"#about",    kw:"bio profile who intro epic tryhackme portswigger seed"},
-    {ic:"#", label:"Security projects",        meta:"building", go:"#casefiles", kw:"projects appsec sast sarif secdojo rsa pki crypto zkp pqc p4 buffer overflow v2x 5g"},
+    {ic:"#", label:"Security projects",        meta:"building", go:"#casefiles", kw:"projects security sast sarif secdojo rsa pki crypto zkp pqc p4 buffer overflow v2x 5g"},
     {ic:"#", label:"Software projects",        meta:"building", go:"#engineering", kw:"build microservices picturas overlay udp fec artgalleries formula neo4j cassandra prolog llama ai"},
     {ic:"#", label:"Practice",                 meta:"building", go:"#practice", kw:"tryhackme portswigger ctf labs training darkreading ccc"},
     {ic:"#", label:"Skills",                   meta:"building", go:"#skills",   kw:"tech stack python go rust c java javascript typescript php burp semgrep codeql docker linux"},
@@ -1614,11 +1894,7 @@
     {ic:"#", label:"Outside work",             meta:"building", go:"#offrecord",kw:"volunteering violin orchestra music community"},
     {ic:"#", label:"Terminal",                 meta:"building", go:"#console",  kw:"terminal shell repl interactive console"},
     {ic:"#", label:"Contact",                  meta:"building", go:"#contact",  kw:"hire email reach hello channel"},
-    {ic:"▦", label:"Light up the zone map",    meta:"action", kw:"building buildings city block aerial isometric directory zones touch", run:function(){
-      goHome();
-      city.classList.remove("ping"); void city.getBoundingClientRect(); city.classList.add("ping");
-      setTimeout(function(){ city.classList.remove("ping"); }, 3000);
-    }},
+    {ic:"▦", label:"Back to the start of the street", meta:"action", kw:"building buildings city street walk reset start home view", run:function(){ if(T) resetView(); }},
     {ic:"↗", label:"GitHub · @matildez0",      meta:"link", url:"https://github.com/matildez0", kw:"code repos source"},
     {ic:"↗", label:"LinkedIn · /matildeoliveira0", meta:"link", url:"https://www.linkedin.com/in/matildeoliveira0/", kw:"social professional"},
     {ic:"↗", label:"SecDojo Scanner repository", meta:"link", url:"https://github.com/secdum/analysum1", kw:"sast sarif rust c cppcheck flawfinder semgrep repo"},
@@ -1725,8 +2001,8 @@
     ["cat <id>","open a case file, e.g. cat CASE-001"],
     ["skills","dump the attack surface"],
     ["zones","list the building's zones"],
-    ["position","why I do this"],
-    ["contact","open channel"],
+    ["position","why I chose security"],
+    ["contact","how to reach me"],
     ["crt","toggle CRT scanlines"],
     ["clear","wipe the screen"]
   ];
@@ -1738,10 +2014,10 @@
     },
     whoami: function(){
       line('matilde.oliveira');
-      line('<span class="d">role   </span> Application Security');
+      line('<span class="d">role   </span> MSc student, University of Minho');
       line('<span class="d">study  </span> MSc Software Engineering, Network, Cryptography & Information Security');
-      line('<span class="d">base   </span> Porto, Portugal');
-      line('<span class="d">side   </span> <span class="g">defends the perimeter</span>');
+      line('<span class="d">base   </span> Braga, Portugal');
+      line('<span class="d">open to</span> <span class="g">internships in networking and cybersecurity</span>');
     },
     ls: function(){
       line('<span class="d">' + PROJECTS.length + ' entries: 6 security projects, 6 software projects</span>');
@@ -1774,10 +2050,8 @@
       });
     },
     position: function(){
-      line('<span class="y">outside</span>       cameras with no warrant, retention with no expiry,');
-      line('             correlation nobody agreed to.');
-      line('<span class="g">inside</span>        every camera and sensor is software. software has');
-      line('             authors, dependencies and bugs, and I go looking for them.');
+      line('<span class="y">why  </span> patterns, problem solving, and understanding how systems work and fail.');
+      line('<span class="g">goal </span> help people feel safe with the technology they use every day.');
     },
     contact: function(){
       line('<span class="d">email    </span> <a href="mailto:' + EMAIL + '">' + EMAIL + '</a>');
