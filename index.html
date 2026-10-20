@@ -736,8 +736,10 @@
     </p>
     <p class="lead">
       I'm a Master's student in Software Engineering at the University of Minho, specialising in
-      <b>Network, Cryptography &amp; Information Security</b>. My projects cover security tooling,
-      applied cryptography and networks. I'm open to <b>internships in networking and cybersecurity</b>.
+      <b>Network, Cryptography &amp; Information Security</b>. My thesis checks whether apps used by
+      journalists, activists and researchers really delete files when they say they do, and I'm building
+      <b>Veto</b>, an app that helps people find who holds their data and exercise their rights.
+      I'm open to <b>internships in networking and cybersecurity</b>.
     </p>
     <div class="hint">
       <span class="k">how to explore</span>
@@ -771,12 +773,14 @@
         <p>What I enjoy most is the process: testing, reading, connecting the dots, until the answer
           finally makes sense.</p>
       </div>
-      <div class="mcard her reveal" data-title="What I want to contribute">
-        <span class="tag">◆ what I want to contribute</span>
-        <p>I want people to feel safe using the technology they depend on every day. For me that means
-          <b>software that respects their data</b> and holds up when someone tries to break it.</p>
-        <p>That is why I work on tools that catch flaws before software ships, and why I study the
-          cryptography that keeps information private.</p>
+      <div class="mcard her reveal" data-title="My vision">
+        <span class="tag">◆ my vision</span>
+        <p>People should know where their data is, and be able to trust what technology tells them
+          about it. Today, promises like "this file was deleted" or "we don't share your data" are
+          rarely checked. I want to <b>close the gap between what software promises and what it really does</b>.</p>
+        <p>That idea connects my work. <b>Veto</b> shows people which companies hold their data and helps
+          them exercise their rights. My <b>thesis</b> tests whether the apps that journalists, activists and
+          researchers rely on actually keep their promises.</p>
       </div>
     </div>
   </section>
@@ -806,6 +810,8 @@
         <div class="drow"><span class="k">name</span><span class="v">Matilde Oliveira</span></div>
         <div class="drow"><span class="k">studying</span><span class="v">MSc Software Engineering</span></div>
         <div class="drow"><span class="k">university</span><span class="v">University of Minho</span></div>
+        <div class="drow"><span class="k">thesis</span><span class="v">Data deletion in Android apps (forensics)</span></div>
+        <div class="drow"><span class="k">building</span><span class="v">Veto, GDPR rights made simple</span></div>
         <div class="drow"><span class="k">focus</span><span class="v">Networks · Cryptography · Information security</span></div>
         <div class="drow"><span class="k">base</span><span class="v">Porto, Portugal</span></div>
         <div class="drow"><span class="k">github</span><span class="v"><a href="https://github.com/matildez0" target="_blank" rel="noopener">@matildez0</a></span></div>
@@ -822,6 +828,29 @@
       <span class="sline"></span><span class="snote">// security work · 6 entries</span>
     </div>
     <div class="grid">
+
+      <article class="card reveal">
+        <span class="sweep"></span>
+        <div class="fhead"><span class="fid">MSC THESIS</span><span class="sev core">research · in progress</span></div>
+        <h3>MSc thesis: do apps really delete what they promise?</h3>
+        <p>Journalists, activists and researchers rely on apps that promise to protect their files. My thesis
+          checks whether that promise holds. On real Android phones and with open-source forensic tools,
+          I compare what an app says happens when a file is deleted with <b>what can still be recovered
+          from the device</b>.</p>
+        <div class="chips"><span class="chip">Mobile forensics</span><span class="chip">Android</span><span class="chip">Data protection</span><span class="chip">Open-source tools</span></div>
+      </article>
+
+      <article class="card reveal">
+        <span class="sweep"></span>
+        <div class="fhead"><span class="fid">VETO</span><span class="sev crypto">startup · in progress</span></div>
+        <h3>Veto: your personal data, under your control</h3>
+        <p>An app that finds the companies holding your personal data and <b>automates exercising your
+          GDPR rights</b>. It analyses your inbox on your own device, groups companies by sector and by how
+          serious a leak would be, flags third parties and known breaches, and writes access, erasure or
+          stop-marketing requests that you send from your own email. The idea is mine, and I lead product
+          and development in a team of four.</p>
+        <div class="chips"><span class="chip">GDPR</span><span class="chip">Privacy by design</span><span class="chip">TypeScript</span><span class="chip">Startup</span></div>
+      </article>
 
       <article class="card feat reveal">
         <span class="sweep"></span>
@@ -1043,10 +1072,21 @@
     <div class="tl reveal">
 
       <div class="item">
+        <div class="when">2026 to present</div>
+        <h3>Veto · Founder</h3>
+        <div class="org">Startup track, Projeto de Informática · University of Minho</div>
+        <ul>
+          <li>Came up with the idea for an app that helps people find who holds their data and exercise their GDPR rights.</li>
+          <li>Lead product and development in a team of four, and ran validation interviews with potential users.</li>
+        </ul>
+      </div>
+
+      <div class="item">
         <div class="when">2025 to present</div>
         <h3>MSc in Software Engineering: Network, Cryptography &amp; Information Security</h3>
         <div class="org">University of Minho</div>
         <ul>
+          <li>Thesis: forensic verification of data deletion guarantees in Android apps used by journalists, activists and researchers.</li>
           <li>Software Security, Computer Systems Security, Cryptography, Network Services Engineering, Cloud Computing, ML.</li>
         </ul>
       </div>
@@ -1253,8 +1293,8 @@
   /* ---------------- hero ---------------- */
   var ROLES = [
     "whoami: msc student, uminho",
-    "focus: networks, crypto",
-    "lab: tryhackme, portswigger",
+    "thesis: android forensics",
+    "building: veto",
     "internships: networks, cyber",
     "hint: hover a lit window"
   ];
@@ -1289,7 +1329,7 @@
   var ZONES = [
     {id:"position",    n:"01", label:"WHY SECURITY",      desc:"Why I chose security, and what I want to contribute.",           items:"#position .mcard"},
     {id:"about",       n:"02", label:"ABOUT",             desc:"Who I am, how I train and what I focus on.",                      items:"#about .about:not([style]), #about .dossier"},
-    {id:"casefiles",   n:"03", label:"SECURITY PROJECTS", desc:"Security tooling, applied cryptography, networks and labs.", items:"#casefiles article"},
+    {id:"casefiles",   n:"03", label:"SECURITY PROJECTS", desc:"My thesis, Veto, security tooling, cryptography and labs.", items:"#casefiles article"},
     {id:"engineering", n:"04", label:"SOFTWARE PROJECTS", desc:"Software I have built, from networking to AI.",                  items:"#engineering article"},
     {id:"practice",    n:"05", label:"PRACTICE",          desc:"How I keep learning: labs, CTFs and reading.",                    items:"#practice .lcard"},
     {id:"skills",      n:"06", label:"SKILLS",            desc:"Languages, tools and security areas I work with.",                items:"#skills .srow", wrap:"surface"},
@@ -1877,7 +1917,7 @@
   var ITEMS = [
     {ic:"#", label:"Why security",             meta:"building", go:"#position", kw:"motivation why security goals privacy people"},
     {ic:"#", label:"About",                    meta:"building", go:"#about",    kw:"bio profile who intro epic tryhackme portswigger seed"},
-    {ic:"#", label:"Security projects",        meta:"building", go:"#casefiles", kw:"projects security sast sarif secdojo rsa pki crypto zkp pqc p4 buffer overflow v2x 5g"},
+    {ic:"#", label:"Security projects",        meta:"building", go:"#casefiles", kw:"projects thesis forensics android veto gdpr privacy security sast sarif secdojo rsa pki crypto zkp pqc p4 buffer overflow v2x 5g"},
     {ic:"#", label:"Software projects",        meta:"building", go:"#engineering", kw:"build microservices picturas overlay udp fec artgalleries formula neo4j cassandra prolog llama ai"},
     {ic:"#", label:"Practice",                 meta:"building", go:"#practice", kw:"tryhackme portswigger ctf labs training darkreading ccc"},
     {ic:"#", label:"Skills",                   meta:"building", go:"#skills",   kw:"tech stack python go rust c java javascript typescript php burp semgrep codeql docker linux"},
@@ -1959,6 +1999,8 @@
   var cout = document.getElementById("cout"), cin = document.getElementById("cin"), cform = document.getElementById("cform");
 
   var PROJECTS = [
+    ["THESIS","MSc thesis: do apps really delete what they promise? (Android forensics)"],
+    ["VETO","Veto: find who holds your data and exercise your GDPR rights"],
     ["CASE-001","SecDojo Scanner: SAST for C & Rust (SARIF 2.1.0)"],
     ["CASE-002","Secure Distributed Marketplace: RSA, signatures, certificates"],
     ["CASE-003","P4 Router & Firewall: data-plane packet filtering"],
@@ -2011,7 +2053,7 @@
       line('<span class="d">open to</span> <span class="g">internships in networking and cybersecurity</span>');
     },
     ls: function(){
-      line('<span class="d">' + PROJECTS.length + ' entries: 6 security projects, 6 software projects</span>');
+      line('<span class="d">' + PROJECTS.length +  ' entries: thesis, Veto, 6 security projects, 6 software projects</span>');
       PROJECTS.forEach(function(p){
         line('  <span class="' + (p[0].indexOf("CASE") === 0 ? "g" : "y") + '">' + p[0] + '</span>  ' + esc(p[1]));
       });
